@@ -4,30 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote for the Cutest AI-Generated Girls</title>
+    <title>Create Poll</title>
 </head>
 <body>
-    <h1>Welcome to the Cutest AI-Generated Girls Contest!</h1>
+    <h1>Create a Poll</h1>
     
-    <div class="girl">
-        <img src="girl1.jpg" alt="Girl 1">
-        <button onclick="voteForGirl(1)">Vote for Girl 1</button>
-    </div>
-    
-    <div class="girl">
-        <img src="girl2.jpg" alt="Girl 2">
-        <button onclick="voteForGirl(2)">Vote for Girl 2</button>
-    </div>
-    
-    <div class="girl">
-        <img src="girl3.jpg" alt="Girl 3">
-        <button onclick="voteForGirl(3)">Vote for Girl 3</button>
-    </div>
+    <button onclick="createPoll()">Create Poll</button>
 
     <script>
-        function voteForGirl(girlNumber) {
-            alert("Thank you for voting for Girl " + girlNumber + "!");
-            // Add your voting logic here
+        function createPoll() {
+            const apiKey = 'XK1MR99M8D4BQ0QEERZRG7WS3WJC';
+            const apiUrl = 'https://api.pollsapi.com/v1/create/poll';
+
+            const data = {
+                question: 'Which is your favorite color?',
+                options: [
+                    { text: 'Blue' },
+                    { text: 'Red' }
+                ]
+            };
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'api-key': apiKey
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Poll created:', data);
+                alert('Poll created successfully!');
+            })
+            .catch(error => {
+                console.error('Error creating poll:', error);
+                alert('Error creating poll. Please try again.');
+            });
         }
     </script>
 </body>
